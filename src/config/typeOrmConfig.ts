@@ -16,4 +16,6 @@ export const TypeOrmConfig = new DataSource({
     logging: true,
     migrationsRun: false,
     migrationsTableName: "migrations",
-}) 
+})
+
+

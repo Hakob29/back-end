@@ -20,6 +20,9 @@ export class UserEntity extends Base {
     @Column({ type: 'text', default: '' })
     address: string
 
+    @Column({ type: String })
+    refreshToken: string;
+
     @OneToMany(() => UserEntity, user => user.id, { cascade: true })
     contacts: UserEntity[]
 
