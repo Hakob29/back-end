@@ -71,49 +71,61 @@ export class AuthService {
 
     //Update Refresh Token
     async updateRefreshToken(id: number, refreshToken: string) {
-        const hashedRefreshToken = await bcrypt.hash(refreshToken, 10);
-        await this.userRepo.update(id, {
-            refreshToken: hashedRefreshToken,
-        });
+        try {
+            const hashedRefreshToken = await bcrypt.hash(refreshToken, 10);
+            await this.userRepo.update(id, {
+                refreshToken: hashedRefreshToken,
+            });
+        } catch (err) {
+            throw new HttpException(err.message, HttpStatus.BAD_REQUEST)
+        }
     }
 
 
 
     //Get Access And Refresh Tokens
     async getTokens(id: number, username: string) {
-        const [accessToken, refreshToken] = await Promise.all([
-            this.jwtService.signAsync(
-                {
-                    sub: id,
-                    username,
-                },
-                {
-                    secret: this.configService.get<string>('JWT_ACCESS_SECRET'),
-                    expiresIn: '15m',
-                },
-            ),
-            this.jwtService.signAsync(
-                {
-                    sub: id,
-                    username,
-                },
-                {
-                    secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
-                    expiresIn: '7d',
-                },
-            ),
-        ]);
+        try {
+            const [accessToken, refreshToken] = await Promise.all([
+                this.jwtService.signAsync(
+                    {
+                        sub: id,
+                        username,
+                    },
+                    {
+                        secret: this.configService.get<string>('JWT_ACCESS_SECRET'),
+                        expiresIn: '15m',
+                    },
+                ),
+                this.jwtService.signAsync(
+                    {
+                        sub: id,
+                        username,
+                    },
+                    {
+                        secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
+                        expiresIn: '7d',
+                    },
+                ),
+            ]);
 
-        return {
-            accessToken,
-            refreshToken,
-        };
+            return {
+                accessToken,
+                refreshToken,
+            };
+        } catch (err) {
+            throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+        }
     }
 
 
     //Log Out
-    async logout(userId: string) {
-        return this.userRepo.update(userId, { refreshToken: null });
+    async logout(user: UserEntity) {
+        try {
+            return await this.userRepo.update(user["sub"], { refreshToken: null });
+        } catch (err) {
+            throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+        }
     }
 }
 

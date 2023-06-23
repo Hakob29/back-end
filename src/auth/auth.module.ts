@@ -13,7 +13,7 @@ import { RefreshTokenStrategy } from './strategy/refreshToken.strategy';
   imports: [
     TypeOrmModule.forFeature([UserEntity]),
     JwtModule.register({
-      secret: jwtConstants.jwt_secret
+      secret: jwtConstants.jwt_access_secret
     }),
   ],
   controllers: [AuthController],
