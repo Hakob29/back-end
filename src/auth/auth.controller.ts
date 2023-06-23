@@ -1,10 +1,10 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { UserInterface } from './response/user.response';
 import { LoginDto } from './dto/login.dto';
 import { LoginResponse } from './response/login.response';
-import { CurrentUser } from 'src/user/decerators/user.decerator';
+import { CurrentUser } from 'src/auth/decerators/user.decerator';
 import { UserEntity } from 'src/user/user.entity';
 import { AuthGuard } from '@nestjs/passport';
 
