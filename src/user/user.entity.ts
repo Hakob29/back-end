@@ -1,3 +1,4 @@
+import { BankAccountEntity } from "src/bank-account/bank-account.entity";
 import { Base } from "src/utils/base";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -23,7 +24,7 @@ export class UserEntity extends Base {
     @Column({ type: String, nullable: true })
     refreshToken: string;
 
-    @OneToMany(() => UserEntity, user => user.id, { cascade: true })
-    contacts: UserEntity[]
+    @OneToMany(() => BankAccountEntity, (bankAccount) => bankAccount.user, { cascade: true })
+    bankAccounts: BankAccountEntity[]
 
 } 
