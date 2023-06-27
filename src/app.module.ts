@@ -10,6 +10,7 @@ import { UserModule } from './user/user.module';
 import { BankAccountModule } from './bank-account/bank-account.module';
 import { SavingModule } from './saving/saving.module';
 import { InvoiceModule } from './invoice/invoice.module';
+import { TransactionModule } from './transaction/transaction.module';
 
 
 @Module({
@@ -22,6 +23,7 @@ import { InvoiceModule } from './invoice/invoice.module';
     BankAccountModule,
     SavingModule,
     InvoiceModule,
+    TransactionModule,
   ],
   controllers: [AppController],
   providers: [AppService],

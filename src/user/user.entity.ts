@@ -1,4 +1,6 @@
 import { BankAccountEntity } from "src/bank-account/bank-account.entity";
+import { SavingEntity } from "src/saving/saving.entity";
+import { TransactionEntity } from "src/transaction/transaction.entity";
 import { Base } from "src/utils/base";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -26,5 +28,12 @@ export class UserEntity extends Base {
 
     @OneToMany(() => BankAccountEntity, (bankAccount) => bankAccount.user, { cascade: true })
     bankAccounts: BankAccountEntity[]
+
+    @OneToMany(() => SavingEntity, (saveing) => saveing.user, { cascade: true })
+    savings: SavingEntity[]
+
+
+    @OneToMany(() => TransactionEntity, (transaction) => transaction.recipient, { cascade: true })
+    transactions?: TransactionEntity[]
 
 } 
