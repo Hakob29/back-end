@@ -1,14 +1,9 @@
 import { Base } from "src/utils/base";
 import { Column, Entity, OneToOne } from "typeorm";
 import { BankAccountEntity } from "./bank-account.entity";
+import { EnumPaymentSystem, EnumTypeCard } from "./bank-account.type";
 
 
-enum EnumTypeCard {
-    MASTER = "Master",
-    MIR = "Mir",
-    VISA = "Visa",
-    MAESTRO = "Maestro"
-}
 @Entity("Bank_card")
 export class BankCardEntity extends Base {
 
@@ -23,6 +18,12 @@ export class BankCardEntity extends Base {
 
     @Column({ enum: EnumTypeCard })
     type: EnumTypeCard
+
+    @Column({ enum: EnumPaymentSystem })
+    paymentSystem: EnumPaymentSystem
+
+    @Column({ type: String })
+    bankName: string
 
     @OneToOne(() => BankAccountEntity, (bankAccount) => bankAccount.card)
     bankAccount: BankAccountEntity

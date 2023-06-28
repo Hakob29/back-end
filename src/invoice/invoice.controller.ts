@@ -1,9 +1,9 @@
 import { Controller } from '@nestjs/common';
-import { InvoiceEntity } from './invoice.entity';
+import { InvoiceService } from './invoice.service';
 
 @Controller('invoice')
 export class InvoiceController {
     constructor(
-        private readonly invoiceEntity: InvoiceEntity
+        private readonly invoiceService: InvoiceService
     ) { }
 }
